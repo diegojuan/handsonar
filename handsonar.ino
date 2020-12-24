@@ -170,7 +170,7 @@ int showMe(){
     oled.setCursor(5,50); 
     oled.print("Speed:");
     oled.print(soundSpeed);
-    oled.print(" us/cm2");
+    oled.print(" us/cm");
 
     // escribimos al display
     oled.display();
