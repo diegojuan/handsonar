@@ -28,8 +28,8 @@ float soundSpeed;
 
 // Definimos frecuencia de buzzer derecho e izquierdo
 // La diferencia de 100Hz es suficiente para diferenciar el tono.
-int fBuzzR = 500;
-int fBuzzL = 600;
+int fBuzzR = 400;
+int fBuzzL = 800;
 
 // Definimos un par de variables que usaremos para calcular la distancia
 // Derecho
@@ -50,7 +50,7 @@ DHT dht(tSensor, DHT11);
 #define OWIDE 128
 #define OHIGH 64
 
-// Esta definicion la requiere la libreria pues el OLED de Adafruit la usa, en mi caso uso uun
+// Esta definicion la requiere la libreria pues el OLED de Adafruit la usa, en mi caso uso un
 // generico, pero igual debemos crearla
 #define OLED_RESET 4 // punt!
 
@@ -83,6 +83,7 @@ void setup(){
 }
 
 // loop principal
+// punt!
 void loop(){
   // Calculamos la velocidad del sonido para nuestro entorno
   soundSpeed = calculateSoundSpeed();
@@ -91,7 +92,7 @@ void loop(){
   travelTimeR = travelTime(rTrigger, rEcho);
 
   // Delay entre lecturas, para prevenir rebotes del echo
-  delay(10);
+  delay(5);
   
   // Lado izquierdo
   travelTimeL = travelTime(lTrigger, lEcho);
@@ -109,7 +110,7 @@ void loop(){
   showMe();
 
   // Delay antes de hacer una nueva lectura
-  delay(100);
+  delay(5);
   
 }
 
@@ -137,7 +138,7 @@ int travelTime(int trigger, int echo){
   digitalWrite(trigger, 0);
   // Capturamos el echo y lo asignamos el valor a travelTime
   travelTime = pulseIn(echo, 1, 35000);
-  // Activamos de nuevos los interrupciones
+  // Activamos de nuevo los interrupciones
   interrupts();
   return travelTime;
 }
@@ -153,9 +154,9 @@ int beepOrNot(int distance, int fBuzz){
 int showMe(){
     oled.clearDisplay();      // limpiamos el display
     oled.setTextColor(WHITE); // Color por defecto (la pantalla es monocromatica)
-    oled.setCursor(30, 0);    // centramos cursor en 30,0
+    oled.setCursor(0, 0);    // centramos cursor en 30,0
     oled.setTextSize(1);      // establece tamano de texto en 1
-    oled.print("Hand sonar"); 
+    oled.print("Hand sonar @jdiegoabc"); 
     oled.setCursor (5, 20);   // ubica cursor en coordenas 5,20
     oled.setTextSize(1);      // establece tamano de texto en 2
     oled.print("Left:");    // escribimos el valor de Left
@@ -170,10 +171,11 @@ int showMe(){
     oled.setCursor(5,50); 
     oled.print("Speed:");
     oled.print(soundSpeed);
-    oled.print(" us/cm");
+    oled.print(" cm/us");
 
     // escribimos al display
     oled.display();
+    
 
 
     
